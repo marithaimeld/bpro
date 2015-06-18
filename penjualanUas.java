@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.text.*;
 
 public class penjualanUas
 {
@@ -34,6 +35,23 @@ public class penjualanUas
 		{"admin","mimin"}
 	};
   
+	public static Vector<Object> datapen(int kode,String tgl,String bar, int jjj)
+	{
+		Vector <Object> datap = new Vector<Object>();
+		datap.addElement(kode);
+		datap.addElement(tgl);
+		datap.addElement(bar);
+		datap.addElement(jjj);
+		return datap;
+	}
+	
+	public static String getTanggal() 
+	{  
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");  
+        Date date = new Date();  
+        return dateFormat.format(date);  
+	}  
+	
 	
 	public static void main(String[]args) throws IOException
 	{
@@ -49,7 +67,9 @@ public class penjualanUas
 		int keluar = 0;
 		int untung = 0 ;
 		int d = 0;
-		Date date = new Date();
+		//Date date = new Date();
+		String st = "kosong";
+
 
 		int login=-1;
 		int count=0;
@@ -102,8 +122,8 @@ public class penjualanUas
 			System.out.println("2. Tambah Data Barang");
 			System.out.println("3. Update Data Barang");
 			System.out.println("4. Hapus Data Barang");
-			System.out.println("5. Cek Data Penjualan");
-			System.out.println("6. Data Barang");
+			System.out.println("5. Data Barang");
+			System.out.println("6. Cek Data Penjualan");
 			System.out.println("7. Cari Data Barang");
 			System.out.println("8. Pendapatan");
 			System.out.println("9. Keluar");
@@ -145,6 +165,7 @@ public class penjualanUas
 						System.out.println(brg.elementAt(beli).elementAt(0) +" " +juml +" botol : Rp " +ht);
 						t += ht;
 						untung += juml*(Integer.valueOf((String) brg.elementAt(beli).elementAt(1))-Integer.valueOf((String) brg.elementAt(beli).elementAt(2)));
+						dp.addElement(datapen(0,getTanggal(),(String)brg.elementAt(beli).elementAt(0),juml));
 						
 						int lg = 0;
 						while (lg==0)
@@ -175,6 +196,7 @@ public class penjualanUas
 						
 						while( d < cs.size())
 						{
+							st = (cs.elementAt(d).elementAt(0) +" (" +cs.elementAt(d).elementAt(2) +") " +"\t" +" = " +cs.elementAt(d).elementAt(3));
 							System.out.print(cs.elementAt(d).elementAt(0) +" (" +cs.elementAt(d).elementAt(2) +") " +"= Rp " +cs.elementAt(d).elementAt(3));
 							System.out.println();
 							d++;
@@ -183,7 +205,7 @@ public class penjualanUas
 					System.out.println();
 					System.out.println("Total : Rp " +t);
 					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-					System.out.println(date);
+					System.out.println(getTanggal());
 					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 					System.out.println();
 					break;
@@ -282,21 +304,30 @@ public class penjualanUas
 					break;
 
 				case 6:
-					Vector<String> data = new Vector<String>();
-					
-					System.out.println();
-					System.out.println("-------------------------");
-					System.out.println("      DATA BARANG");
-					System.out.println("-------------------------");	
-					for (int c=0 ; c<jum ; c++)
+					if (st.equals("kosong"))
 					{
-						System.out.print(c+1 +"  ");
-						System.out.print(brg.elementAt(c).elementAt(0) +" @Rp " +brg.elementAt(c).elementAt(1));
+						System.out.println();
+						System.out.println("-------------------------");
+						System.out.println("Tidak ada data penjualan");
+						System.out.println("-------------------------");
 						System.out.println();
 					}
-
-					System.out.println("-------------------------");	
-					System.out.println();	
+					else
+					{
+						System.out.println();
+						System.out.println("-------------------------");
+						System.out.println("Histori Belanja");
+						System.out.println("-------------------------");
+						System.out.println(dp.size());
+						for(int f=0 ; f<dp.size();f++)
+						{
+							System.out.println("--------------------------------");
+							System.out.println("Waktu : "+dp.elementAt(f).elementAt(1));
+							System.out.println("Barang : "+dp.elementAt(f).elementAt(2));
+							System.out.println("Jumlah : " +dp.elementAt(f).elementAt(3));
+							System.out.println();
+						}
+					}
 					break;
 					
 				case 7:
