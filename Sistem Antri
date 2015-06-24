@@ -1,0 +1,26 @@
+import java.util.*;
+
+public class sistemantri
+{
+	Queue<AntrianPasien> antrian = new LinkedList<AntrianPasien>();
+	public static int NO_ANTRIAN = 0;
+	public static void addPasien(AntrianPasien ap)
+	{
+		NO_ANTRIAN++;
+	}
+	public static AntrianPasien panggilAntri()
+	{
+	
+	}
+	public static void viewAllAntrian()
+	{
+	
+	}
+	public static void cetakMenu()
+	{
+		System.out.println("-----------------SISTEM ANTRIAN SEDERHANA----------------");
+		System.out.println("----[1] TAMBAH PASIEN [2]PANGGIL PASIEN [3]LIHAT DATA----");
+		System.out.println("-------------------------[4] KELUAR----------------------");
+		System.out.println("---------------------------------------------------------");
+	}
+	
